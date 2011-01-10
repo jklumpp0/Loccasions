@@ -1,4 +1,8 @@
-.settings/
+*.class
+*.war
+*.ear
+*.jar
+.settings
 .project
 .classpath
 
