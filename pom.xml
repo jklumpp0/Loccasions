@@ -1,0 +1,88 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>loccasions</groupId>
+   <version>1.0</version>
+   <artifactId>java-ee</artifactId>
+   <packaging>pom</packaging>
+   <name>Loccasions</name>
+	 
+	<pluginRepositories>
+			<pluginRepository>
+				<id>maven.java.net</id>
+				<name>Java.net Maven2 Repository</name>
+				<url>http://download.java.net/maven/2</url>
+			</pluginRepository>
+	</pluginRepositories>
+
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>Jboss Repository for Maven</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>java-net</id>
+            <name>Java.net Maven Repository</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+		<repository>
+		 <id>EclipseLink Repo</id>
+		 <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+		 <!-- use this for javax.persistence-->
+		 <snapshots>
+			<enabled>true</enabled>
+		 </snapshots> 
+	  </repository>
+    </repositories>
+
+   <modules>
+      <module>ear</module>
+      <module>webapp</module>
+	  <module>ejb</module>
+   </modules>
+
+	<dependencies>
+		<!--<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>appserv-rt.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>${glassfish.home}/lib/appserv-rt.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>javaee.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>${glassfish.home}/lib/javaee.jar</systemPath>
+		</dependency>-->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+    </dependencies>
+
+	<build>  
+      	<plugins>  
+	    <plugin>  
+	      	<artifactId>maven-compiler-plugin</artifactId>  
+	    	<configuration>  
+	    	    <source>1.6</source>  
+	    	    <target>1.6</target>  
+	    	</configuration>  
+	    </plugin>           
+<!--
+	    <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-ejb-plugin</artifactId>
+		<configuration>
+		    <ejbVersion>3.0</ejbVersion>
+		</configuration>
+	    </plugin>-->
+	</plugins>
+    </build>
+
+</project>
+

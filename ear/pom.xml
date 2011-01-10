@@ -1,0 +1,90 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>locassions</groupId>
+   <artifactId>loccasions</artifactId>
+   <packaging>ear</packaging>
+   <version>1.0-SNAPSHOT</version>
+   <name>Loccasions EAR</name>
+
+   <parent>
+      <groupId>loccasions</groupId>
+      <artifactId>java-ee</artifactId>
+      <version>1.0</version>
+   </parent>
+
+   <dependencies>
+      <dependency>
+         <groupId>loccasions</groupId>
+         <artifactId>webapp</artifactId>
+		 <version>1.0-SNAPSHOT</version>
+         <type>war</type>
+      </dependency>
+      <dependency>
+         <groupId>loccasions</groupId>
+         <artifactId>ejb</artifactId>
+		 <version>1.0</version>
+         <type>ejb</type>
+		 <!--<scope>provided</scope>-->
+      </dependency>
+   </dependencies>
+
+   <build>
+	 <plugins>
+		 <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-ear-plugin</artifactId>
+			<configuration>
+			   <displayName>Loccasions</displayName>
+			   <defaultLibBundleDir>lib</defaultLibBundleDir>
+               <archive>
+                  <manifest>
+                     <addClasspath>true</addClasspath>
+                  </manifest>
+               </archive>
+			   <modules>
+			   <webModule>
+				  <groupId>loccasions</groupId>
+				  <artifactId>webapp</artifactId>
+				  <contextRoot>/loccasions</contextRoot>
+			   </webModule>
+			   <ejbModule>
+			   	  <groupId>loccasions</groupId>
+				  <artifactId>ejb</artifactId>
+			   </ejbModule>
+			   </modules>
+			</configuration>
+		 </plugin>
+			<plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+                    <user>admin</user>
+                    <adminPassword>admin</adminPassword>
+                    <!-- <passFile>path/to/asadmin/passfile</passFile> -->
+                    <autoCreate>true</autoCreate>
+                    <debug>false</debug>
+                    <echo>true</echo>
+                    <terse>true</terse>
+                    <domain>
+                        <name>domain1</name>
+                        <adminPort>4848</adminPort>
+                        <httpPort>8080</httpPort>
+                        <httpsPort>8443</httpsPort>
+                        <iiopPort>3700</iiopPort>
+                        <jmsPort>7676</jmsPort>
+                        <reuse>false</reuse>
+					</domain>
+					<components>
+						<component>
+							<name>loccasions-1.0-SNAPSHOT</name>
+							<artifact>target/loccasions-1.0-SNAPSHOT.ear</artifact>
+						</component>
+					</components>
+				</configuration>
+			</plugin>
+	  </plugins>
+   </build>
+</project>
+

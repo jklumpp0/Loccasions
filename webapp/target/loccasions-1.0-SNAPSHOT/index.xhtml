@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:rich="http://richfaces.org/rich"
+		>
+
+  <h:head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </h:head>
+  <h:body>    
+  	<ui:composition template="templates/template.xhtml">
+  		<h:messages></h:messages>
+	  	<ui:define name="title">Location Information</ui:define>
+	  	<ui:define name="content">
+	  	<div class="main">
+	  	<h:outputStylesheet name="css/loc.css" />
+	
+	    <div style="width:505px">
+	    <h:form>
+	    <rich:extendedDataTable id="list" value="#{loc.locations}" var="l" width="500px" frozenColumns="1" height="200px" selection="#{tbl.selection}" selectionMode="single">
+	    	<f:facet name="header">
+	    		<h:outputText value="Existing Locations"/>
+	    	</f:facet>
+<!--     	<f:facet name="footer">
+	    		<rich:dataScroller stepControls="false" fastControls="false" boundaryControls="false">
+	    		</rich:dataScroller>
+	    	</f:facet> -->
+	   		
+	   		<a4j:ajax execute="@form" event="selectionchange" listener="#{tbl.selectionListener}" render=":outtxt,:img_list" />
+	   		
+	   		<rich:column width="200px" selectable="true">
+	    		<f:facet name="header">	
+	    			<h:outputText value="Name" />
+	    		</f:facet>
+	    		<a4j:commandLink render=":img_list" value="#{l.name}" execute=":list" id="btnTest">
+	    		  <f:setPropertyActionListener target="#{loc.selection}" value="#{l}"></f:setPropertyActionListener>
+	    		</a4j:commandLink>
+	    		<!-- <h:outputText value="#{l.name}" />-->
+	   		</rich:column>
+	   		
+	   		<rich:column width="300px">
+	    		<f:facet name="header">	
+	    			<h:outputText value="Description" />
+	    		</f:facet>
+	    		<h:outputText value="#{l.description}"/>
+	   		</rich:column>
+	    </rich:extendedDataTable>
+	    </h:form>
+	    </div>
+	    
+	    <rich:panel id="img_list" styleClass="mediaPanel">
+	    	<f:facet name="header">
+	    		<h:outputText value="Media" />
+	    	</f:facet>
+	    	
+	    	<h:outputText value="No Media Associated" rendered="#{empty tbl.media}" />
+	    	<a4j:repeat value="#{tbl.media}" var="m" rendered="#{not empty tbl.media}">
+	    		<h:graphicImage styleClass="locMedia" value="/image?id=#{m}"></h:graphicImage>
+		    </a4j:repeat>
+	    </rich:panel>
+	    
+	    <div class="form">
+	    <h:form prependId="false" id="f0" styleClass="form">
+	    	<h3>Add Location</h3>    	
+	    	<h:panelGroup styleClass='inputRow'>
+	    		<h:outputLabel value="Name:" for="name" />
+	    		<rich:inplaceInput value="${loc.loccasion.name}" id="name" 
+	    				defaultLabel="Location Name" required="true" readyStateClass="txtInput" editClass="txtInput" requiredMessage="This field is required."/>
+	    		<h:message for="name" showDetail="true" styleClass="message" id="name_msg"/>
+	    	</h:panelGroup>
+	    	    	
+	    	<h:panelGroup styleClass='inputRow'>
+	    		<h:outputLabel value="Tag:" for="tag" />
+	    		<rich:inplaceInput value="${loc.loccasion.tag}" id="tag" defaultLabel="Tags - Separate with commas" readyStateClass="txtInput" editClass="txtInput" />
+	    		<!-- <h:message for="tag" />-->
+	    	</h:panelGroup>
+	    	    	
+	    	<h:panelGroup styleClass='inputRow'>
+	    		<h:outputLabel value="Description:" for="desc" />
+	    		<rich:inplaceInput value="${loc.loccasion.description}" id="desc" defaultLabel="Location Description" readyStateClass="txtInput" editClass="txtInput" required="true" requiredMessage="This field is required." />
+	    		<h:message for="desc" styleClass="message" />
+	    	</h:panelGroup>
+	    	
+	    	<h:panelGroup styleClass='inputRow'>
+	    		<h:outputLabel value="Location" for="loc" />
+	    		<rich:inplaceInput value="${loc.loccasion.coord}" id="loc" converter="CoordConv" defaultLabel="Coordinates" readyStateClass="txtInput" editClass="txtInput"/>
+	    	<!-- 	<h:message for="loc" /> -->
+	    	</h:panelGroup>
+	    	
+	    	<a4j:commandButton value="Add" action="#{loc.createLoc}" render=":list,@form" styleClass="submitButton" reRender="refresh"/>
+	    </h:form>
+	    </div>
+	    </div>
+	    <a4j:outputPanel id="outtxt">
+			<h:outputText escape="false" value="#{tbl.text}" />
+		</a4j:outputPanel>	    
+	    
+	</ui:define>
+	</ui:composition>    
+  </h:body>
+</html> 
