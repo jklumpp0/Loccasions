@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:rich="http://richfaces.org/rich"
+		>
+	<ui:composition>
+		<a4j:outputPanel id="img_list">
+			<rich:panel styleClass="mediaPanel" rendered="#{not empty tbl.selection}">
+				<h:outputText value="#{tbl.curSel}" />
+		    	<f:facet name="header">
+		    		<h:outputText value="Media" />
+		    	</f:facet>
+		    	
+		    	<h:outputText value="No Media Associated" rendered="#{empty tbl.media}" />
+		    	<a4j:repeat value="#{tbl.media}" var="m" rendered="#{not empty tbl.media}">
+		    		<h:graphicImage styleClass="locMedia" value="/image?id=#{m}"></h:graphicImage>
+			    </a4j:repeat>
+			    
+			    <a4j:commandLink styleClass="mediaUpdate" value="Update Associated Media">
+			    	<rich:componentControl target="assoc_media" operation="show"/>
+			    </a4j:commandLink>
+		    
+		    <!-- Media Association Update -->
+		    <rich:popupPanel id="assoc_media" modal="true" resizable="true">
+		    	<f:facet name="header">
+		    		<h:outputText value="Media" />
+		    	</f:facet>
+		    	<h:outputText value="#{tbl.curSel}" />
+		    	<h:form>
+			  		<h:messages></h:messages>			  	
+				  	<h:selectManyCheckbox value="#{tbl.mediaSel}" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
+				  		<f:selectItems value="#{tbl.allMedia}" var="item" itemLabel="#{item.title}" />
+				  	</h:selectManyCheckbox>
+				  	
+				  	<br />
+				  	
+				  	<h:panelGrid styleClass="buttonRow" columns="2" columnClasses="halfSize, halfSize">
+				    	<a4j:commandButton action="#{tbl.submit}" render=":img_list" value="Submit" onclick="#{rich:component('assoc_media')}.hide(); return true;" styleClass="submitButton"/>
+				    	
+				    	<a4j:commandButton value="Cancel" styleClass="submitButton">
+				    		<rich:componentControl target="assoc_media" operation="hide"/>
+				    	</a4j:commandButton>
+				    </h:panelGrid>
+			  	</h:form>
+		    </rich:popupPanel>
+		    </rich:panel> 	
+	    </a4j:outputPanel>
+	</ui:composition>
+</html>
