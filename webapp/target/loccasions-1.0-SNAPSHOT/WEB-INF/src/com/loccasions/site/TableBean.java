@@ -1,13 +1,16 @@
 package com.loccasions.site;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.richfaces.component.UIExtendedDataTable;
@@ -36,8 +39,10 @@ public class TableBean implements Serializable {
 	private List<Location> sel = new Vector<Location>();
 	private Collection<Object> selection;
 	private List<Media> mSel = new Vector<Media>();
+	private String msg = "";
 	
 	/*
+	 * 
 	 * EJB injected accessors
 	 */
 	@EJB 
@@ -71,6 +76,7 @@ public class TableBean implements Serializable {
 			dataTable.setRowKey(selkey);
 			if(dataTable.isRowAvailable()) {
 				sel.add((Location)dataTable.getRowData());
+				msg = String.format("Set the selection to item %1$s", ((Location)dataTable.getRowData()).getName());
 			}
 		}
 		
@@ -97,14 +103,14 @@ public class TableBean implements Serializable {
 		return ids ;
 	}
 		
-	public String submit() {
+	public void submit(ActionEvent event) {
+		msg = "Submit was called";
+		Location l = sel.get(0);
+		l.setMedia(mSel);
+		mLocations.createLocation(l);
 
-			Location l = sel.get(0);
-			l.setMedia(mSel);
-			mLocations.createLocation(l);
-
-		mSel = null;
-		return null;
+		//mSel = null;
+		msg = String.format("Attempted to set location \"%1$s\" to a list of %2$d items.", l.getName(), mSel.size());
 	}
 	
 	public List<Media> getAllMedia() {
@@ -112,17 +118,23 @@ public class TableBean implements Serializable {
 	}
 	
 	public void setMediaSel(List<Media> sel) {
+		msg = String.format("Just changed media to contain %1$d items.", sel.size());
 		mSel = sel;
+		submit(null);
 	}
 	
 	public List<Media> getMediaSel() {
 		List<Media> media = mSel;
 		
-		if (sel != null) {
+		if (sel != null && sel.size() == 1) {
 			Location l = sel.get(0);
 			media = new Vector<Media>(l.getMedia());
 		}
 		
 		return media;
+	}
+	
+	public String getLastMsg() {
+		return msg;
 	}
 }

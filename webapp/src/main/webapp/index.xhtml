@@ -13,31 +13,38 @@
   </h:head>
   <h:body>    
   	<ui:composition template="templates/template.xhtml">
+  		
   		<h:messages></h:messages>
 	  	<ui:define name="title">Location Information</ui:define>
 	  	<ui:define name="content">
+	  	<h:form>
 	  	<div class="main">
+	  	<a4j:outputPanel id="lm">
+	  		<h:outputText value="#{tbl.lastMsg}"/>
+	  	</a4j:outputPanel>
 	  	<h:outputStylesheet name="css/loc.css" />
-	
+	  	
 	    <div style="width:505px">
-	    <h:form>
+	    
 	    <rich:extendedDataTable id="list" value="#{loc.locations}" var="l" width="500px" frozenColumns="1" height="200px" selection="#{tbl.selection}" selectionMode="single" rows="10" >
 	    	<f:facet name="header">
 	    		<h:panelGroup>
 		    		<h:outputText value="Existing Locations"/>
 		    			<h:panelGroup styleClass="addLoc">
-			    		<a4j:commandLink value="+">
-			    			<rich:componentControl target="add_loc" operation="show" />
-			    		</a4j:commandLink>	
+			    		<h:commandLink value="+">
+			    			<rich:componentControl target="add_loc" operation="show"/>
+			    		</h:commandLink>	
 		    		</h:panelGroup>
 	    		</h:panelGroup>
 	    	</f:facet>
+	    	
+	    	<ui:remove>
      		<f:facet name="footer">
 	    		<rich:dataScroller stepControls="false" fastControls="false" boundaryControls="false" rendered="#{loc.locations.size() > 10}">
 	    		</rich:dataScroller>
 	    	</f:facet> 
-	   		
-	   		<a4j:ajax execute="@this" event="selectionchange" listener="#{tbl.selectionListener}" render=":img_list"/>
+	   		</ui:remove>
+	   		<a4j:ajax execute="@this" event="selectionchange" listener="#{tbl.selectionListener}" render=":img_list,:lm,:assoc_media"/>
 	   		
 	   		<rich:column width="200px" selectable="true">
 	    		<f:facet name="header">	
@@ -54,13 +61,13 @@
 	    		<h:outputText value="#{l.description}"/>
 	   		</rich:column>
 	    </rich:extendedDataTable>
-	    </h:form>
 	    </div>
 	    
 	    <ui:include src="media_panel.xhtml"></ui:include>
 	    
 	    <ui:include src="addloc_panel.xhtml"></ui:include>
 	    </div>
+	    </h:form>
 	</ui:define>
 	</ui:composition>    
   </h:body>

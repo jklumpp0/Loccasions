@@ -20,13 +20,10 @@ public class MediaConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 		Media m = null;
-		
 			//InitialContext ic = new InitialContext();
 			//MediaRemote rem = (MediaRemote)ic.lookup("java:global/LoccasionEJB/MediaEJB");
-			int id = Integer.parseInt(value);
-			m = mMedia.getMedia(id);	
-		
-		
+		int id = Integer.parseInt(value);
+		m = mMedia.getMedia(id);	
 		return m;
 	}
 

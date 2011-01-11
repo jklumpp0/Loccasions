@@ -11,7 +11,6 @@
 	<ui:composition>
 		<a4j:outputPanel id="img_list">
 			<rich:panel styleClass="mediaPanel" rendered="#{not empty tbl.selection}">
-				<h:outputText value="#{tbl.curSel}" />
 		    	<f:facet name="header">
 		    		<h:outputText value="Media" />
 		    	</f:facet>
@@ -21,34 +20,36 @@
 		    		<h:graphicImage styleClass="locMedia" value="/image?id=#{m}"></h:graphicImage>
 			    </a4j:repeat>
 			    
-			    <a4j:commandLink styleClass="mediaUpdate" value="Update Associated Media">
-			    	<rich:componentControl target="assoc_media" operation="show"/>
-			    </a4j:commandLink>
-		    
+			    <h:messages></h:messages>
+				    <a4j:commandLink styleClass="mediaUpdate" render=":assoc_media" value="Update Associated Media" onclick="#{rich:component('assoc_media')}.show(); return true();" />
+		    </rich:panel> 	
+		    	
 		    <!-- Media Association Update -->
-		    <rich:popupPanel id="assoc_media" modal="true" resizable="true">
+		    <rich:panel> 
 		    	<f:facet name="header">
 		    		<h:outputText value="Media" />
 		    	</f:facet>
-		    	<h:outputText value="#{tbl.curSel}" />
-		    	<h:form >
-			  		<h:messages></h:messages>			  	
-				  	<h:selectManyCheckbox value="#{tbl.mediaSel}" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
+		    		<a4j:region>  	
+				  	<h:selectManyCheckbox  value="#{tbl.mediaSel}" id="assoc_media_sel" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
 				  		<f:selectItems value="#{tbl.allMedia}" var="item" itemLabel="#{item.title}" />
+				  		<a4j:ajax render=":img_list,:lm" event="valueChange"></a4j:ajax>
 				  	</h:selectManyCheckbox>
-				  	
+ 				  	
 				  	<br />
 				  	
 				  	<h:panelGrid styleClass="buttonRow" columns="2" columnClasses="halfSize, halfSize">
-				    	<a4j:commandButton action="#{tbl.submit}" render=":img_list" value="Submit" onclick="#{rich:component('assoc_media')}.hide(); return true;" styleClass="submitButton"/>
+				  		<a4j:commandButton actionListener="#{tbl.submit}" render=":img_list,:lm" value="Submit" styleClass="submitButton"/>
+				  		
+				  		<ui:remove>
+	 				    							<!-- <a4j:commandButton action="#{tbl.submit}"  onclick="#{rich:component('assoc_media')}.hide(); return true;" execute=":assoc_media_sel,@form" render=":img_list,@form" value="Submit" styleClass="submitButton"/>-->
+				    	</ui:remove>
 				    	
-				    	<a4j:commandButton value="Cancel" styleClass="submitButton">
+				    	<h:commandButton value="Cancel" styleClass="submitButton">
 				    		<rich:componentControl target="assoc_media" operation="hide"/>
-				    	</a4j:commandButton>
+				    	</h:commandButton>
 				    </h:panelGrid>
-			  	</h:form>
-		    </rich:popupPanel>
-		    </rich:panel> 	
+				    </a4j:region>
+		    </rich:panel>
 	    </a4j:outputPanel>
 	</ui:composition>
 </html>

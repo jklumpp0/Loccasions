@@ -7,8 +7,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import org.richfaces.model.UploadItem;
-
 import com.loccasions.ejbiface.MediaRemote;
 import com.loccasions.model.Media;
 

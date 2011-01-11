@@ -14,7 +14,9 @@
 	    	<h:outputText value="Add New Location" />
 	    </f:facet>
 	    <div class="form">
-	    <h:form prependId="false" id="f0" styleClass="form">
+	    <ui:remove>
+	  	<!--   <h:form prependId="false" id="f0" styleClass="form"> -->
+	    </ui:remove>
 	    	<h3>Add Location</h3>    	
 	    	<h:panelGroup styleClass='inputRow'>
 	    		<h:outputLabel value="Name:" for="name" />
@@ -44,11 +46,13 @@
 	    	<h:panelGrid styleClass="buttonRow" columns="2" columnClasses="halfSize, halfSize">
 	    	<a4j:commandButton value="Add" action="#{loc.createLoc}" render=":list,@form" styleClass="submitButton" onclick="#{rich:component('add_loc')}.hide();return true;" />
 	    	
-	    	<a4j:commandButton value="Cancel" styleClass="submitButton">
+	    	<h:commandButton value="Cancel" styleClass="submitButton">
 	    		<rich:componentControl target="add_loc" operation="hide"/>
-	    	</a4j:commandButton>
+	    	</h:commandButton>
 	    	</h:panelGrid>
-	    </h:form>
+	    <ui:remove>
+	    <!-- </h:form> -->
+	    </ui:remove>
 	    </div>
 	    </rich:popupPanel>
    </ui:composition>

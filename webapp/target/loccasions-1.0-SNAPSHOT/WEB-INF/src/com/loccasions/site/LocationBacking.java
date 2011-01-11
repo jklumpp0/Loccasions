@@ -4,9 +4,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import com.loccasions.ejbiface.LocationRemote;
 import com.loccasions.ejbiface.MediaRemote;
@@ -22,6 +24,7 @@ public class LocationBacking {
 	private Date mDate;
 	private Location loccasion;
 	private Location lSel;
+	private List<Location> locs;
 	String type;
 
 	public Location getSelection() {
@@ -45,14 +48,20 @@ public class LocationBacking {
 		loccasion = new Location();
 	}
 	
+	@PostConstruct
+	void init() {
+		locs = mLoc.getLocations();
+	}
+	
 	public String createLoc() {
 		mLoc.createLocation(loccasion);
 		loccasion = new Location();
+		locs = mLoc.getLocations();
 		return null;
 	}
 	
 	public List<Location> getLocations() {
-		return mLoc.getLocations();
+		return locs;
 	}
 	
 	

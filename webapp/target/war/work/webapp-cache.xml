@@ -50,11 +50,11 @@
           <string>WEB-INF/classes/com/loccasions/site/MediaServlet.class</string>
           <string>WEB-INF/classes/com/loccasions/site/MediaConverter.class</string>
           <string>WEB-INF/lib/ejb-1.0-client.jar</string>
-          <string>WEB-INF/lib/richfaces-components-ui-4.0.0.20101110-M4.jar</string>
-          <string>WEB-INF/lib/richfaces-components-api-4.0.0.20101110-M4.jar</string>
-          <string>WEB-INF/lib/richfaces-core-api-4.0.0.20101110-M4.jar</string>
+          <string>WEB-INF/lib/richfaces-components-ui-4.0.0.20101226-M5.jar</string>
+          <string>WEB-INF/lib/richfaces-components-api-4.0.0.20101226-M5.jar</string>
+          <string>WEB-INF/lib/richfaces-core-api-4.0.0.20101226-M5.jar</string>
           <string>WEB-INF/lib/guava-r05.jar</string>
-          <string>WEB-INF/lib/richfaces-core-impl-4.0.0.20101110-M4.jar</string>
+          <string>WEB-INF/lib/richfaces-core-impl-4.0.0.20101226-M5.jar</string>
           <string>WEB-INF/lib/cssparser-0.9.5.jar</string>
           <string>WEB-INF/lib/sac-1.3.jar</string>
           <string>WEB-INF/lib/jsr311-api-1.0.jar</string>
@@ -78,25 +78,25 @@
       <dependency>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-components-ui</artifactId>
-        <version>4.0.0.20101110-M4</version>
+        <version>4.0.0.20101226-M5</version>
         <type>jar</type>
         <scope>compile</scope>
         <exclusions/>
         <optional>false</optional>
       </dependency>
-      <targetFileName>richfaces-components-ui-4.0.0.20101110-M4.jar</targetFileName>
+      <targetFileName>richfaces-components-ui-4.0.0.20101226-M5.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
         <groupId>org.richfaces.core</groupId>
         <artifactId>richfaces-core-impl</artifactId>
-        <version>4.0.0.20101110-M4</version>
+        <version>4.0.0.20101226-M5</version>
         <type>jar</type>
         <scope>compile</scope>
         <exclusions/>
         <optional>false</optional>
       </dependency>
-      <targetFileName>richfaces-core-impl-4.0.0.20101110-M4.jar</targetFileName>
+      <targetFileName>richfaces-core-impl-4.0.0.20101226-M5.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
