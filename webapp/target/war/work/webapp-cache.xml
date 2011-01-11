@@ -26,9 +26,11 @@
           <string>resources/css/loc.css</string>
           <string>rf.xhtml</string>
           <string>upload.xhtml</string>
+          <string>addloc_panel.xhtml</string>
           <string>WEB-INF/web.xml</string>
           <string>WEB-INF/balusc.taglib.xml</string>
           <string>WEB-INF/faces-config.xml</string>
+          <string>media_panel.xhtml</string>
           <string>assoc.xhtml</string>
           <string>WEB-INF/classes/net/balusc/jsf/component/html/HtmlInputFile.class</string>
           <string>WEB-INF/classes/net/balusc/jsf/renderer/html/FileRenderer.class</string>

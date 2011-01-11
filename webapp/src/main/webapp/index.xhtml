@@ -21,24 +21,29 @@
 	
 	    <div style="width:505px">
 	    <h:form>
-	    <rich:extendedDataTable id="list" value="#{loc.locations}" var="l" width="500px" frozenColumns="1" height="200px" selection="#{tbl.selection}" selectionMode="single">
+	    <rich:extendedDataTable id="list" value="#{loc.locations}" var="l" width="500px" frozenColumns="1" height="200px" selection="#{tbl.selection}" selectionMode="single" rows="10" >
 	    	<f:facet name="header">
-	    		<h:outputText value="Existing Locations"/>
+	    		<h:panelGroup>
+		    		<h:outputText value="Existing Locations"/>
+		    			<h:panelGroup styleClass="addLoc">
+			    		<a4j:commandLink value="+">
+			    			<rich:componentControl target="add_loc" operation="show" />
+			    		</a4j:commandLink>	
+		    		</h:panelGroup>
+	    		</h:panelGroup>
 	    	</f:facet>
-<!--     	<f:facet name="footer">
-	    		<rich:dataScroller stepControls="false" fastControls="false" boundaryControls="false">
+     		<f:facet name="footer">
+	    		<rich:dataScroller stepControls="false" fastControls="false" boundaryControls="false" rendered="#{loc.locations.size() > 10}">
 	    		</rich:dataScroller>
-	    	</f:facet> -->
+	    	</f:facet> 
 	   		
-	   		<a4j:ajax execute="@form" event="selectionchange" listener="#{tbl.selectionListener}" render=":outtxt,:img_list" />
+	   		<a4j:ajax execute="@this" event="selectionchange" listener="#{tbl.selectionListener}" render=":img_list"/>
 	   		
 	   		<rich:column width="200px" selectable="true">
 	    		<f:facet name="header">	
 	    			<h:outputText value="Name" />
 	    		</f:facet>
-	    		<a4j:commandLink render=":img_list" value="#{l.name}" execute=":list" id="btnTest">
-	    		  <f:setPropertyActionListener target="#{loc.selection}" value="#{l}"></f:setPropertyActionListener>
-	    		</a4j:commandLink>
+	    		<h:outputText value="#{l.name}" />
 	    		<!-- <h:outputText value="#{l.name}" />-->
 	   		</rich:column>
 	   		
@@ -52,53 +57,10 @@
 	    </h:form>
 	    </div>
 	    
-	    <rich:panel id="img_list" styleClass="mediaPanel">
-	    	<f:facet name="header">
-	    		<h:outputText value="Media" />
-	    	</f:facet>
-	    	
-	    	<h:outputText value="No Media Associated" rendered="#{empty tbl.media}" />
-	    	<a4j:repeat value="#{tbl.media}" var="m" rendered="#{not empty tbl.media}">
-	    		<h:graphicImage styleClass="locMedia" value="/image?id=#{m}"></h:graphicImage>
-		    </a4j:repeat>
-	    </rich:panel>
+	    <ui:include src="media_panel.xhtml"></ui:include>
 	    
-	    <div class="form">
-	    <h:form prependId="false" id="f0" styleClass="form">
-	    	<h3>Add Location</h3>    	
-	    	<h:panelGroup styleClass='inputRow'>
-	    		<h:outputLabel value="Name:" for="name" />
-	    		<rich:inplaceInput value="${loc.loccasion.name}" id="name" 
-	    				defaultLabel="Location Name" required="true" readyStateClass="txtInput" editClass="txtInput" requiredMessage="This field is required."/>
-	    		<h:message for="name" showDetail="true" styleClass="message" id="name_msg"/>
-	    	</h:panelGroup>
-	    	    	
-	    	<h:panelGroup styleClass='inputRow'>
-	    		<h:outputLabel value="Tag:" for="tag" />
-	    		<rich:inplaceInput value="${loc.loccasion.tag}" id="tag" defaultLabel="Tags - Separate with commas" readyStateClass="txtInput" editClass="txtInput" />
-	    		<!-- <h:message for="tag" />-->
-	    	</h:panelGroup>
-	    	    	
-	    	<h:panelGroup styleClass='inputRow'>
-	    		<h:outputLabel value="Description:" for="desc" />
-	    		<rich:inplaceInput value="${loc.loccasion.description}" id="desc" defaultLabel="Location Description" readyStateClass="txtInput" editClass="txtInput" required="true" requiredMessage="This field is required." />
-	    		<h:message for="desc" styleClass="message" />
-	    	</h:panelGroup>
-	    	
-	    	<h:panelGroup styleClass='inputRow'>
-	    		<h:outputLabel value="Location" for="loc" />
-	    		<rich:inplaceInput value="${loc.loccasion.coord}" id="loc" converter="CoordConv" defaultLabel="Coordinates" readyStateClass="txtInput" editClass="txtInput"/>
-	    	<!-- 	<h:message for="loc" /> -->
-	    	</h:panelGroup>
-	    	
-	    	<a4j:commandButton value="Add" action="#{loc.createLoc}" render=":list,@form" styleClass="submitButton" reRender="refresh"/>
-	    </h:form>
+	    <ui:include src="addloc_panel.xhtml"></ui:include>
 	    </div>
-	    </div>
-	    <a4j:outputPanel id="outtxt">
-			<h:outputText escape="false" value="#{tbl.text}" />
-		</a4j:outputPanel>	    
-	    
 	</ui:define>
 	</ui:composition>    
   </h:body>

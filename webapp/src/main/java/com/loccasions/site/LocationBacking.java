@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import com.loccasions.ejbiface.LocationRemote;
+import com.loccasions.ejbiface.MediaRemote;
 import com.loccasions.model.Location;
 import com.loccasions.model.Media;
 
@@ -61,29 +62,6 @@ public class LocationBacking {
 	
 	public void setLoccasion(Location loc) {
 		loccasion = loc;
-	}
-	
-	public String getName() {
-		return "Jared9!";
-	}
-	
-	public List<Long> getMedia() {
-		List<Long> ids = new Vector<Long>();
-		 
-		// If no selection, abort
-		if (lSel == null) {
-			return ids;
-		}
-		
-		// Otherwise find the media ids for images
-		for (Media m : lSel.getMedia()) {
-			String mime = m.getMime();
-			if (mime.startsWith("image") || mime.startsWith("video")) {
-				ids.add(new Long(m.getId()));
-			}
-		}
-		
-		return ids ;
 	}
 	
 	public int getMediaCount() {

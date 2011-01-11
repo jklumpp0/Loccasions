@@ -71,3 +71,35 @@ h3 {
 	width:505px; 
 	margin-top: 7px;
 }
+
+.addLoc {
+	display: block;
+	float: right;
+}
+
+.addLoc a {
+	text-decoration: normal;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+table.buttonRow {
+	width: 95%;
+}
+
+.halfSize {
+	width: 50%;
+}
+
+.mediaUpdate {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin-top: 3px;
+}
+
+.mediaTable {
+	width: 100%;
+}
+
+

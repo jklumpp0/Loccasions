@@ -30,7 +30,11 @@ public class AssocBean {
 			locSelection.setMedia(mSel);
 			mLocations.createLocation(locSelection);
 		}
-		return "index.loc";
+		
+		locSelection = null;
+		mSel = new Vector<Media>();
+		
+		return null;
 	}
 	
 	public List<Location> getLocations() {
