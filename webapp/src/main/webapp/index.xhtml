@@ -19,11 +19,7 @@
 	  	<ui:define name="content">
 	  	<h:form>
 	  	<div class="main">
-	  	<a4j:outputPanel id="lm">
-	  		<h:outputText value="#{tbl.lastMsg}"/>
-	  	</a4j:outputPanel>
 	  	<h:outputStylesheet name="css/loc.css" />
-	  	
 	    <div style="width:505px">
 	    
 	    <rich:extendedDataTable id="list" value="#{loc.locations}" var="l" width="500px" frozenColumns="1" height="200px" selection="#{tbl.selection}" selectionMode="single" rows="10" >
@@ -44,7 +40,7 @@
 	    		</rich:dataScroller>
 	    	</f:facet> 
 	   		</ui:remove>
-	   		<a4j:ajax execute="@this" event="selectionchange" listener="#{tbl.selectionListener}" render=":img_list,:lm,:assoc_media"/>
+	   		<a4j:ajax execute="@this" event="selectionchange" listener="#{tbl.selectionListener}" render=":img_list"/>
 	   		
 	   		<rich:column width="200px" selectable="true">
 	    		<f:facet name="header">	

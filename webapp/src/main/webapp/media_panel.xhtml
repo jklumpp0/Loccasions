@@ -9,8 +9,8 @@
 		xmlns:rich="http://richfaces.org/rich"
 		>
 	<ui:composition>
-		<a4j:outputPanel id="img_list">
-			<rich:panel styleClass="mediaPanel" rendered="#{not empty tbl.selection}">
+		<a4j:outputPanel id="img_list" rendered="#{not empty tbl.selection}">
+			<rich:panel styleClass="mediaPanel">
 		    	<f:facet name="header">
 		    		<h:outputText value="Media" />
 		    	</f:facet>
@@ -21,34 +21,20 @@
 			    </a4j:repeat>
 			    
 			    <h:messages></h:messages>
-				    <a4j:commandLink styleClass="mediaUpdate" render=":assoc_media" value="Update Associated Media" onclick="#{rich:component('assoc_media')}.show(); return true();" />
+				    <a4j:commandLink styleClass="mediaUpdate" value="Update Associated Media" onclick="#{rich:component('assoc_media')}.show(); return true;" />
 		    </rich:panel> 	
 		    	
 		    <!-- Media Association Update -->
-		    <rich:panel> 
+		    <rich:panel id="assoc_media"> 
 		    	<f:facet name="header">
 		    		<h:outputText value="Media" />
 		    	</f:facet>
-		    		<a4j:region>  	
-				  	<h:selectManyCheckbox  value="#{tbl.mediaSel}" id="assoc_media_sel" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
-				  		<f:selectItems value="#{tbl.allMedia}" var="item" itemLabel="#{item.title}" />
-				  		<a4j:ajax render=":img_list,:lm" event="valueChange"></a4j:ajax>
-				  	</h:selectManyCheckbox>
- 				  	
-				  	<br />
-				  	
-				  	<h:panelGrid styleClass="buttonRow" columns="2" columnClasses="halfSize, halfSize">
-				  		<a4j:commandButton actionListener="#{tbl.submit}" render=":img_list,:lm" value="Submit" styleClass="submitButton"/>
-				  		
-				  		<ui:remove>
-	 				    							<!-- <a4j:commandButton action="#{tbl.submit}"  onclick="#{rich:component('assoc_media')}.hide(); return true;" execute=":assoc_media_sel,@form" render=":img_list,@form" value="Submit" styleClass="submitButton"/>-->
-				    	</ui:remove>
-				    	
-				    	<h:commandButton value="Cancel" styleClass="submitButton">
-				    		<rich:componentControl target="assoc_media" operation="hide"/>
-				    	</h:commandButton>
-				    </h:panelGrid>
-				    </a4j:region>
+			  	<h:selectManyCheckbox  value="#{tbl.mediaSel}" id="assoc_media_sel" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
+			  		<f:selectItems value="#{tbl.allMedia}" var="item" itemLabel="#{item.title}" />
+			  		<a4j:ajax render=":img_list" event="valueChange"></a4j:ajax>
+			  	</h:selectManyCheckbox>
+			  	
+			  	<rich:fileUpload acceptedTypes="jpg,gif,png,bmp" id="upload" maxFilesQuantity="1"></rich:fileUpload>
 		    </rich:panel>
 	    </a4j:outputPanel>
 	</ui:composition>
