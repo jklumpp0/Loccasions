@@ -1,16 +1,13 @@
 package com.loccasions.site;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.richfaces.component.UIExtendedDataTable;
@@ -39,7 +36,6 @@ public class TableBean implements Serializable {
 	private List<Location> sel = new Vector<Location>();
 	private Collection<Object> selection;
 	private List<Media> mSel = new Vector<Media>();
-	private String msg = "";
 	
 	/*
 	 * 
@@ -76,7 +72,6 @@ public class TableBean implements Serializable {
 			dataTable.setRowKey(selkey);
 			if(dataTable.isRowAvailable()) {
 				sel.add((Location)dataTable.getRowData());
-				msg = String.format("Set the selection to item %1$s", ((Location)dataTable.getRowData()).getName());
 			}
 		}
 		
@@ -103,24 +98,20 @@ public class TableBean implements Serializable {
 		return ids ;
 	}
 		
-	public void submit(ActionEvent event) {
-		msg = "Submit was called";
+	public String submit() {
 		Location l = sel.get(0);
 		l.setMedia(mSel);
 		mLocations.createLocation(l);
-
-		//mSel = null;
-		msg = String.format("Attempted to set location \"%1$s\" to a list of %2$d items.", l.getName(), mSel.size());
+		return null;
 	}
-	
+
 	public List<Media> getAllMedia() {
 		return mMedia.getMedia();
 	}
 	
 	public void setMediaSel(List<Media> sel) {
-		msg = String.format("Just changed media to contain %1$d items.", sel.size());
 		mSel = sel;
-		submit(null);
+		submit();
 	}
 	
 	public List<Media> getMediaSel() {
@@ -132,9 +123,5 @@ public class TableBean implements Serializable {
 		}
 		
 		return media;
-	}
-	
-	public String getLastMsg() {
-		return msg;
 	}
 }

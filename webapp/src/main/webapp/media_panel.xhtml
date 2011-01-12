@@ -9,8 +9,8 @@
 		xmlns:rich="http://richfaces.org/rich"
 		>
 	<ui:composition>
-		<a4j:outputPanel id="img_list" rendered="#{not empty tbl.selection}">
-			<rich:panel styleClass="mediaPanel">
+		<a4j:outputPanel id="img_list">
+			<rich:panel styleClass="mediaPanel" rendered="#{not empty tbl.selection}" id="img_list_set">
 		    	<f:facet name="header">
 		    		<h:outputText value="Media" />
 		    	</f:facet>
@@ -25,17 +25,19 @@
 		    </rich:panel> 	
 		    	
 		    <!-- Media Association Update -->
-		    <rich:panel id="assoc_media"> 
+		    <rich:popupPanel id="assoc_media" modal="true" domElementAttachment="form"> 
 		    	<f:facet name="header">
 		    		<h:outputText value="Media" />
 		    	</f:facet>
-			  	<h:selectManyCheckbox  value="#{tbl.mediaSel}" id="assoc_media_sel" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
+			  	<h:selectManyCheckbox value="#{tbl.mediaSel}" id="assoc_media_sel" layout="pageDirection" converter="#{mediaConverterBean}" styleClass="mediaTable">
+			  		<a4j:ajax render=":img_list_set,:lm" />
 			  		<f:selectItems value="#{tbl.allMedia}" var="item" itemLabel="#{item.title}" />
-			  		<a4j:ajax render=":img_list" event="valueChange"></a4j:ajax>
-			  	</h:selectManyCheckbox>
-			  	
-			  	<rich:fileUpload acceptedTypes="jpg,gif,png,bmp" id="upload" maxFilesQuantity="1"></rich:fileUpload>
-		    </rich:panel>
+			  	</h:selectManyCheckbox> 
+	    	  	
+		    	<h:commandButton value="Done" styleClass="submitButton">
+		    		<rich:componentControl target="assoc_media" operation="hide"/>
+		    	</h:commandButton>
+		    </rich:popupPanel>
 	    </a4j:outputPanel>
 	</ui:composition>
 </html>

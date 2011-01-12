@@ -61,4 +61,5 @@
   	<param-name>org.richfaces.enableControlSkinning</param-name>
   	<param-value>true</param-value>  
   </context-param>
+  
 </web-app>
